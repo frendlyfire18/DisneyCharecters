@@ -10,9 +10,12 @@ export const appRouter = trpc
         text: z.string().nullish(),
       })
       .nullish(),
-    resolve({ input }) {
+    async resolve({ input }) {
+      const res = await fetch(`https://akabab.github.io/superhero-api/api/id/${input?.text}.json`);
+      const rs = await res.json();
       return {
-        greeting: `hello ${input?.text ?? 'world'}`,
+        name: rs.name,
+        image:rs.images.lg
       };
     },
   });
