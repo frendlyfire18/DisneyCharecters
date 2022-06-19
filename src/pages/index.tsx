@@ -1,8 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { trpc } from '../utils/trpc';
 
 const Home: NextPage = () => {
+  const {data,isLoading} = trpc.useQuery(["hello",{text:"FrendlyFire"}])
+
+  if(data) return <div>{data.greeting}</div>
+
   return (
     <div className='w-screen h-screen flex flex-col justify-center'>
       <div className="text-2xl text-center">
